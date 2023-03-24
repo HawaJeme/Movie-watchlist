@@ -1,0 +1,16 @@
+header{
+    height: 13rem;
+    border: 1px solid;
+    color: white;
+    background: url(image\ 36.png) no-repeat center center fixed;
+    background-color: #0E0E0E;
+    background-size: contain;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+header > div{
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}
