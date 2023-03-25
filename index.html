@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FONT AWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
 </head>
 <body>
     <header>
-        <div>
+        <div class="container">
             <h1>Find your film</h1>
             <h3>My watchlist</h3>
         </div>
+        <div class="search-bar">
+            <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+            <input id="search-input" type="text" placeholder="Blade Runner" />
+            <input id="search-btn" type="button" value="Search"/>
+        </div>
     </header>
     <main>
-        
+        <div id="movie-container">
+            
+        </div>
     </main>
+    <script src="index.js"></script>
 </body>
 </html>
