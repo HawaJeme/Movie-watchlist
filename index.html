@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- FONT AWESOME CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index.css" />
     <title>Document</title>
 </head>
@@ -13,17 +16,22 @@
     <header>
         <div class="container">
             <h1>Find your film</h1>
-            <h3>My watchlist</h3>
+            <button id="my-watchlist"><h3>My Watchlist</h3></button>
         </div>
         <div class="search-bar">
-            <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
-            <input id="search-input" type="text" placeholder="Blade Runner" />
+            <div class="search-inputs">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="search-input" type="text" placeholder="Search for a movie"/>
+            </div>
             <input id="search-btn" type="button" value="Search"/>
         </div>
     </header>
     <main>
         <div id="movie-container">
-            
+            <div class="start-exploring">
+                <i class="fa-solid fa-film"></i>
+                <h4>Start exploring</h4>
+            </div>
         </div>
     </main>
     <script src="index.js"></script>
