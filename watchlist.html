@@ -15,22 +15,18 @@
 <body>
     <header>
         <div class="container">
-            <h1>Find your film</h1>
-            <a id="my-watchlist" href="watchlist.html"><h3>My Watchlist</h3></a>
-        </div>
-        <div class="search-bar">
-            <div class="search-inputs">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input id="search-input" type="text" placeholder="Search for a movie"/>
-            </div>
-            <input id="search-btn" type="button" value="Search"/>
+            <h1>My watchlist</h1>
+            <a id="my-watchlist" href="index.html"><h3>Search for movies</h3></a>
         </div>
     </header>
     <main>
-        <div id="movie-container">
-            <div class="start-exploring">
-                <i class="fa-solid fa-film"></i>
-                <h4>Start exploring</h4>
+        <div id="watchlist-page">
+            <div class="empty-watchList">
+                <h3>Your watchlist is looking a little empty...</h3>
+                <a href="index.html">
+                    <i class="fa-solid fa-circle-plus"></i>
+                    <h5>Let's add some movies!</h5>
+                </a>
             </div>
         </div>
     </main>

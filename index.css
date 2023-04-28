@@ -3,9 +3,22 @@
     font-family: 'Inter', sans-serif;
 }
 body{
+    position: relative;
+    height: 100vh;
     margin: 0;
     background-color: #121212;
 }
+/* TYPOGRAPHY */
+.movie-title{
+    font-size: 1.15rem;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+/* HEADER & IT'S CONTAINER*/
 
 header{
     height: 13rem;
@@ -22,9 +35,8 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 85%;
+    width: 40rem;
     height: 100%;
-    padding: 2rem;
     margin: 0 auto;
 }
 .container > h1{
@@ -38,6 +50,8 @@ header{
     border: none;
     cursor: pointer;
 }
+
+/* SEARCH BAR */
 
 .search-bar{
     display: grid;
@@ -70,9 +84,10 @@ header{
     height: 120%;
     background-color: transparent;
     border: none;
+    outline: none;
     font-size: 1.1rem;
     padding: 0 0 0 0.5rem ;
-    color: #A5A5A5;
+    color: white;
     font-weight:500;
 }
 #search-btn{
@@ -89,20 +104,96 @@ header{
     color: white;
     cursor: pointer;
 }
+
+/* ICONS */
+
 .fa-film{
-    font-size: 7rem;
+    font-size: 5rem;
     color: #2E2E2F;
 }
+.fa-star{
+    color: rgb(255, 208, 0);
+}
+.fa-circle-plus{
+    color: white;
+    font-size: 15px;
+}
+
 .start-exploring{
     display: flex;
     flex-direction: column;
+    position: absolute;
+    width: 32.5rem;
+    top: 60%;
+    align-items: center;
+    margin: 0 auto;
 }
 .start-exploring > h4{
     font-size: 18px;
+    font-weight: 700;
     color: #2E2E2F;
 }
-#movie-container{
+#movie-container, #watchlist-page{
+    width: 32.5rem;
+    margin: 75px auto;
+}
+
+/* MOVIE DIVS */
+.movie-div{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    padding: 20px 0;
+    color: white;
+    gap: 25px;
+}
+.movie-div-details > div{
     display: flex;
     align-items: center;
-    justify-content: center;
+}
+.poster{
+    grid-row: 1/-1;
+    border-radius: 2.32941px;
+    height: 200px;
+    width: 135px;
+}
+#watchlist-btn{
+    border: none;
+    color:white;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+.plot-disc{
+    color: #A5A5A5;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.error-msg{
+    color: #A5A5A5;
+    text-align: center;
+}
+.title-div{
+    gap: 10px;
+}
+.runtime-div{
+    gap: 20px;
+    font-size: 12px;
+    font-weight: 400;
+}
+.empty-watchList{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+    margin-top: 10%;
+}
+.empty-watchList > a{
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 8px;
+}
+.empty-watchList > h3 {
+    color: #787878
 }
