@@ -5,6 +5,18 @@ const watchListPage = document.getElementById("watchlist-page")
 let addMovie = localStorage.getItem('addMovie')
 let watchlist = addMovie ? JSON.parse(addMovie) : []
 
+renderWatchlistPage()
+
+if(searchBtn){
+    searchBtn.addEventListener('click', movieFetch)
+    searchInput.addEventListener('keypress', (e)=>{ //Triggering the search bar with Enter key
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchBtn.click();
+          }
+    })
+}
+
 function movieFetch(){
     fetch(`http://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
     .then(Response => Response.json())
@@ -22,7 +34,10 @@ function movieFetch(){
             )}
     )
         } else {
-            moviesContainer.innerHTML = `<h2 class="error-msg">Unable to find what you’re looking for. Please try another search.</h2>`
+            moviesContainer.innerHTML =
+            `<h2 class="error-msg">
+            Unable to find what you’re looking for. Please try another search.
+            </h2>`
             console.log(data.Response)
             throw new Error(`Error status: ${data.Error}`)
         }}
@@ -31,60 +46,67 @@ function movieFetch(){
         console.error(Error)
     })
 }
+function watchlistLooped(data){
+    return htmlReturned(data)
+}
 
 let html = ``
 function movieDivs(data){
-    let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
-    // const circleIcon = watchlist.filter(mov => data.imdbID === mov) ? 'fa-circle-minus' : 'fa-circle-plus'
-    html += `<div class="movie-div">
-            <img class="poster" src=${poster} />
-            <div class="movie-div-details">
-                <div class="title-div">
-                    <h2 class="movie-title">${data.Title}</h2>
-                    <i class="fa-solid fa-star"></i>
-                    <h5>${data.imdbRating}</h5>
-                </div>
-                <div class="runtime-div">
-                    <p>${data.Runtime}</p>
-                    <p>${data.Genre}</p>
-                    <span>
-                    <i class="fa-solid fa-circle-plus"></i>
-                    <button id="watchlist-btn" data-add=${data.imdbID}>Watchlist</button>
-                    </span>
-                </div>
-                <div class="plot-div">
-                    <h4 class="plot-disc">${data.Plot}</h4>
-                </div>
-            </div>
-        </div>`
-    return html
+    html += htmlReturned(data)
 }
-if(watchListPage){
-    for(let movie of watchlist){
-        fetch(`http://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
-        .then(Response => Response.json())
-        .then(data => {
-            html= ``
-            console.log(watchlist)
-            movieDivs(data)
-            document.querySelector('.empty-watchList').style.display = 'none'
-            watchListPage.innerHTML += html
-        })
+function htmlReturned(data){
+    let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
+    const circleIcon = watchlist.includes(data.imdbID) ? 'fa-circle-minus' : 'fa-circle-plus'
+
+    return `<div class="movie-div">
+    <img class="poster" src=${poster} />
+    <div class="movie-div-details">
+        <div class="title-div">
+            <h2 class="movie-title">${data.Title}</h2>
+            <i class="fa-solid fa-star"></i>
+            <h5>${data.imdbRating}</h5>
+        </div>
+        <div class="runtime-div">
+            <p>${data.Runtime}</p>
+            <p>${data.Genre}</p>
+            <span>
+            <i class="fa-solid ${circleIcon}"></i>
+            <button id="watchlist-btn" data-imdbid=${data.imdbID}>Watchlist</button>
+            </span>
+        </div>
+        <div class="plot-div">
+            <h4 class="plot-disc">${data.Plot}</h4>
+        </div>
+    </div>
+</div>`
+}
+function renderWatchlistPage(){
+    if(watchListPage){
+        for(let movie of watchlist){
+            fetch(`http://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
+            .then(Response => Response.json())
+            .then(data => {
+                html= ``
+                document.querySelector('.empty-watchList').style.display = 'none'
+                watchListPage.innerHTML += watchlistLooped(data)
+            })
+        }
     }
 }
+
 document.body.addEventListener('click', (e) => {
-    if (e.target.dataset.add && !watchlist.includes(e.target.dataset.add)){
-        e.preventDefault()
-        console.log(e.target.dataset.add)
-        watchlist.push(e.target.dataset.add)
-        console.log(watchlist)
+    if (watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to remove the movie from watchlist
+        let filtered = watchlist.filter(mov => e.target.dataset.imdbid !== mov)
+        localStorage.setItem('addMovie', JSON.stringify(filtered))
+        e.target.previousElementSibling.classList.remove('fa-circle-minus')
+        e.target.previousElementSibling.classList.add('fa-circle-plus')
+        location.reload();
+    }
+    if (!watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to add imdbid the movie in watchlist
+        console.log(e.target.dataset.imdbid)
+        e.target.previousElementSibling.classList.remove('fa-circle-plus')
+        e.target.previousElementSibling.classList.add('fa-circle-minus')
+        watchlist.push(e.target.dataset.imdbid)
         localStorage.setItem('addMovie', JSON.stringify(watchlist))
     }
 })
-document.getElementById("watchlist-btn").addEventListener('toggle', ()=> {
-    console.log('add')
-    console.log('remove')
-})
-if(searchBtn){
-    searchBtn.addEventListener('click', movieFetch)
-}
