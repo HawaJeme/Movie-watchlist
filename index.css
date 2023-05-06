@@ -23,7 +23,7 @@ a{
 header{
     height: 13rem;
     color: white;
-    background: url(image\ 36.png) no-repeat center center fixed;
+    background: url(image\ 36.png) no-repeat center center;
     background-size: cover;
     background-color: #0E0E0E;
     -webkit-background-size: cover;

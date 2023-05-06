@@ -4,18 +4,8 @@ const moviesContainer = document.getElementById("movie-container")
 const watchListPage = document.getElementById("watchlist-page")
 let addMovie = localStorage.getItem('addMovie')
 let watchlist = addMovie ? JSON.parse(addMovie) : []
+let html = ``
 
-renderWatchlistPage()
-
-if(searchBtn){
-    searchBtn.addEventListener('click', movieFetch)
-    searchInput.addEventListener('keypress', (e)=>{ //Triggering the search bar with Enter key
-        if (e.key === "Enter") {
-            e.preventDefault();
-            searchBtn.click();
-          }
-    })
-}
 
 function movieFetch(){
     fetch(`http://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
@@ -28,7 +18,7 @@ function movieFetch(){
                 fetch(`http://www.omdbapi.com/?apikey=c30abc27&t=${movie.Title}`)
                 .then(Response => Response.json())
                 .then(data => {
-                    movieDivs(data)
+                    html += htmlReturned(data)
                     moviesContainer.innerHTML = html
                 }
             )}
@@ -36,7 +26,7 @@ function movieFetch(){
         } else {
             moviesContainer.innerHTML =
             `<h2 class="error-msg">
-            Unable to find what you’re looking for. Please try another search.
+                Unable to find what you’re looking for. Please try another search.
             </h2>`
             console.log(data.Response)
             throw new Error(`Error status: ${data.Error}`)
@@ -46,14 +36,7 @@ function movieFetch(){
         console.error(Error)
     })
 }
-function watchlistLooped(data){
-    return htmlReturned(data)
-}
 
-let html = ``
-function movieDivs(data){
-    html += htmlReturned(data)
-}
 function htmlReturned(data){
     let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
     const circleIcon = watchlist.includes(data.imdbID) ? 'fa-circle-minus' : 'fa-circle-plus'
@@ -80,6 +63,7 @@ function htmlReturned(data){
     </div>
 </div>`
 }
+
 function renderWatchlistPage(){
     if(watchListPage){
         for(let movie of watchlist){
@@ -88,11 +72,15 @@ function renderWatchlistPage(){
             .then(data => {
                 html= ``
                 document.querySelector('.empty-watchList').style.display = 'none'
-                watchListPage.innerHTML += watchlistLooped(data)
+                watchListPage.innerHTML += htmlReturned(data)
             })
         }
     }
 }
+
+renderWatchlistPage()
+
+// Click events
 
 document.body.addEventListener('click', (e) => {
     if (watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to remove the movie from watchlist
@@ -100,13 +88,24 @@ document.body.addEventListener('click', (e) => {
         localStorage.setItem('addMovie', JSON.stringify(filtered))
         e.target.previousElementSibling.classList.remove('fa-circle-minus')
         e.target.previousElementSibling.classList.add('fa-circle-plus')
-        location.reload();
+        if(location.href.includes('watchlist.html')){
+            location.reload()
+        }
     }
-    if (!watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to add imdbid the movie in watchlist
-        console.log(e.target.dataset.imdbid)
+    if (!watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to add imdb id of movie to watchlist
         e.target.previousElementSibling.classList.remove('fa-circle-plus')
         e.target.previousElementSibling.classList.add('fa-circle-minus')
         watchlist.push(e.target.dataset.imdbid)
         localStorage.setItem('addMovie', JSON.stringify(watchlist))
     }
 })
+
+if(location.href.includes('index.html')){
+    searchBtn.addEventListener('click', movieFetch)
+    searchInput.addEventListener('keypress', (e)=>{ //Triggering the search bar with Enter key
+        if (e.key === "Enter") {
+            e.preventDefault();
+            searchBtn.click();
+          }
+    })
+}
