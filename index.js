@@ -32,6 +32,7 @@ function movieFetch(){
         }}
     )
     .catch(Error => {
+        console.error(Error)
         moviesContainer.innerHTML =
         `<h2 class="error-msg">
         Something went wrong.
@@ -43,7 +44,7 @@ function htmlReturned(data){
     let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
     const circleIcon = watchlist.includes(data.imdbID) ? 'fa-circle-minus' : 'fa-circle-plus'
     const watchlistOrRemove = watchListPage ? 'Remove' : 'Watchlist'
-    
+
     return `<div class="movie-div">
     <img class="poster" src=${poster} />
     <div class="movie-div-details">
