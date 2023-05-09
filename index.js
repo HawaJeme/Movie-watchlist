@@ -8,14 +8,14 @@ let html = ``
 
 
 function movieFetch(){
-    fetch(`http://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
+    fetch(`https://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
     .then(Response => Response.json())
     .then(data => {
         if(data.Response === 'True'){
             moviesContainer.innerHTML = ''
             html = ``
             data.Search.map(movie => {
-                fetch(`http://www.omdbapi.com/?apikey=c30abc27&t=${movie.Title}`)
+                fetch(`https://www.omdbapi.com/?apikey=c30abc27&t=${movie.Title}`)
                 .then(Response => Response.json())
                 .then(data => {
                     html += htmlReturned(data)
