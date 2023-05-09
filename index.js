@@ -28,19 +28,22 @@ function movieFetch(){
             `<h2 class="error-msg">
                 Unable to find what you’re looking for. Please try another search.
             </h2>`
-            console.log(data.Response)
             throw new Error(`Error status: ${data.Error}`)
         }}
     )
     .catch(Error => {
-        console.error(Error)
+        moviesContainer.innerHTML =
+        `<h2 class="error-msg">
+        Something went wrong.
+        </h2>`
     })
 }
 
 function htmlReturned(data){
     let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
     const circleIcon = watchlist.includes(data.imdbID) ? 'fa-circle-minus' : 'fa-circle-plus'
-
+    const watchlistOrRemove = watchListPage ? 'Remove' : 'Watchlist'
+    
     return `<div class="movie-div">
     <img class="poster" src=${poster} />
     <div class="movie-div-details">
@@ -54,7 +57,7 @@ function htmlReturned(data){
             <p>${data.Genre}</p>
             <span>
             <i class="fa-solid ${circleIcon}"></i>
-            <button id="watchlist-btn" data-imdbid=${data.imdbID}>Watchlist</button>
+            <button id="watchlist-btn" data-imdbid=${data.imdbID}>${watchlistOrRemove}</button>
             </span>
         </div>
         <div class="plot-div">
