@@ -71,7 +71,7 @@ function htmlReturned(data){
 function renderWatchlistPage(){
     if(watchListPage){
         for(let movie of watchlist){
-            fetch(`http://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
+            fetch(`https://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
             .then(Response => Response.json())
             .then(data => {
                 html= ``
