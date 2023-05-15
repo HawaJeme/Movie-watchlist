@@ -8,4 +8,3 @@ App that will let you save your favorite movies in your watchlist
 - Button to "add to watchlist" which saves that data to local storage.
 - watchlist.html loads and displays data from local storage.
 =======
->>>>>>> 701019d68563c74a9720831680e7eba4ac42b8e4
