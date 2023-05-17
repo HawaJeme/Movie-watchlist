@@ -2,15 +2,7 @@
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
-html{
-    position:fixed;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-}
 body{
-    position: relative;
     height: 100vh;
     margin: 0;
     background-color: #121212;
@@ -136,11 +128,8 @@ header{
 .start-exploring{
     display: flex;
     flex-direction: column;
-    position: absolute;
-    width: 32.5rem;
-    top: 60%;
     align-items: center;
-    margin: 0 auto;
+    margin: 150px auto;
 }
 .start-exploring > h4{
     font-size: 18px;
@@ -198,9 +187,7 @@ header{
 .empty-watchList{
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
     align-items: center;
-    margin-top: 10%;
 }
 .empty-watchList > a{
     display: flex;
@@ -209,19 +196,23 @@ header{
     gap: 8px;
 }
 .empty-watchList > h3 {
-    color: #787878
+    color: #787878;
+    text-align: center;
 }
 
 /* MEDIA QUIRIES */
 
 @media only screen and (max-width: 700px) {
-    .container{
-        width: 100%;
-        padding: 0 2rem;
-    }
-    .search-inputs{
-        width: 20rem;
-    }
+.container{
+    width: 100%;
+    padding: 0 2rem;
+}
+.search-inputs{
+    width: 20rem;
+}
+#movie-container, #watchlist-page{
+    width: 25rem;
+}
 }
 
 @media only screen and (max-width: 550px) {
@@ -249,7 +240,34 @@ header{
 #my-watchlist{
     font-size: 15px;
 }
-.start-exploring{
-    width: 100%;
+#movie-container, #watchlist-page{
+    width: 15rem;
+    margin: 50px auto;
+}
+.poster{
+    height: 150px;
+    width: 100px;
+}
+.fa-solid:not(.fa-film){
+    font-size: 10px;
+}
+.movie-div-details > div, .movie-title, .plot-disc{
+    font-size: 10px;
+    line-height: 12px;
+}
+.title-div{
+    gap: 6px;
+}
+#watchlist-btn{
+    font-size: 10px;
+}
+.runtime-div{
+    gap: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.movie-div{
+    gap: 50px;
+    grid-template-columns: 30% 70%;
 }
 }
