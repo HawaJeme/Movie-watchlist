@@ -51,7 +51,7 @@ function htmlReturned(data){
         <div class="title-div">
             <h2 class="movie-title">${data.Title}</h2>
             <i class="fa-solid fa-star"></i>
-            <h5>${data.imdbRating}</h5>
+            <h5 class="rating">${data.imdbRating}</h5>
         </div>
         <div class="runtime-div">
             <p>${data.Runtime}</p>
@@ -104,7 +104,6 @@ document.body.addEventListener('click', (e) => {
     }
 })
 
-if(location.href.includes('index.html')){
     searchBtn.addEventListener('click', movieFetch)
     searchInput.addEventListener('keypress', (e)=>{ //Triggering the search bar with Enter key
         if (e.key === "Enter") {
@@ -112,4 +111,3 @@ if(location.href.includes('index.html')){
             searchBtn.click();
           }
     })
-}

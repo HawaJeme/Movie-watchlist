@@ -235,23 +235,26 @@ header{
     font-size: 12px;
 }
 .container > h1{
-    font-size: 25px;
+    font-size: 24px;
 }
 #my-watchlist{
-    font-size: 15px;
+    font-size: 12px;
 }
 #movie-container, #watchlist-page{
     width: 15rem;
     margin: 50px auto;
 }
 .poster{
-    height: 150px;
-    width: 100px;
+    height: 145px;
+    width: 90px;
 }
 .fa-solid:not(.fa-film){
     font-size: 10px;
 }
-.movie-div-details > div, .movie-title, .plot-disc{
+.fa-film{
+    font-size: 60px;
+}
+.movie-title, .plot-disc{
     font-size: 10px;
     line-height: 12px;
 }
@@ -261,13 +264,16 @@ header{
 #watchlist-btn{
     font-size: 10px;
 }
+.rating{
+    font-size: 8px;
+}
 .runtime-div{
     gap: 0;
     display: flex;
     justify-content: space-between;
+    font-size: 8px;
 }
 .movie-div{
-    gap: 50px;
-    grid-template-columns: 30% 70%;
+    gap: 33px;
 }
 }
