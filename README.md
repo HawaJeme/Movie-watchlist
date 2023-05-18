@@ -1,5 +1,6 @@
 # Movie-watchlist
 App that will let you save your favorite movies in your watchlist
+- This project is a solution to Movie watchlist solo project on Scrimba.
 
 ## Requirements:
 - Two pages (index.html and watchlist.html).
