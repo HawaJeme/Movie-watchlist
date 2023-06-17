@@ -2,112 +2,139 @@ const searchInput = document.getElementById("search-input")
 const searchBtn = document.getElementById("search-btn")
 const moviesContainer = document.getElementById("movie-container")
 const watchListPage = document.getElementById("watchlist-page")
-let addMovie = localStorage.getItem('addMovie')
+const emptyWatchlist = document.querySelector(".empty-watchList")
+const spinner = document.querySelector(".spinner")
+let addMovie = localStorage.getItem("addMovie")
 let watchlist = addMovie ? JSON.parse(addMovie) : []
-let html = ``
+let html
+let loading = false
 
+async function movieFetch(){
+    const res = await fetch(`https://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
+    const data = await res.json()
 
-function movieFetch(){
-    fetch(`https://www.omdbapi.com/?apikey=c30abc27&s=${searchInput.value}`)
-    .then(Response => Response.json())
-    .then(data => {
-        if(data.Response === 'True'){
-            moviesContainer.innerHTML = ''
+    try {
+        if(data.Response === "True"){
+            loading = true
+            spinner.style.display = "block"
+            moviesContainer.innerHTML = ``
             html = ``
-            data.Search.map(movie => {
-                fetch(`https://www.omdbapi.com/?apikey=c30abc27&t=${movie.Title}`)
-                .then(Response => Response.json())
-                .then(data => {
-                    html += htmlReturned(data)
-                    moviesContainer.innerHTML = html
-                }
-            )}
-    )
+            data.Search.map( async movie => {
+                const res = await fetch(`https://www.omdbapi.com/?apikey=c30abc27&t=${movie.Title}`)
+                const data = await res.json()
+                html += moviesHTML(data)
+                loading = false
+                spinner.style.display = "none"
+                moviesContainer.innerHTML = html
+            })
         } else {
-            moviesContainer.innerHTML =
-            `<h2 class="error-msg">
-                Unable to find what you’re looking for. Please try another search.
-            </h2>`
-            throw new Error(`Error status: ${data.Error}`)
-        }}
-    )
-    .catch(Error => {
+            throw new Error(data.Error)
+        }
+    }
+    
+    catch (Error) {
         console.error(Error)
         moviesContainer.innerHTML =
         `<h2 class="error-msg">
-        Something went wrong.
+            Unable to find what you're looking for. Please try again.
         </h2>`
-    })
+    }
 }
 
-function htmlReturned(data){
-    let poster = data.Poster == "N/A" ? "No-image-available.png" : data.Poster
-    const circleIcon = watchlist.includes(data.imdbID) ? 'fa-circle-minus' : 'fa-circle-plus'
-    const watchlistOrRemove = watchListPage ? 'Remove' : 'Watchlist'
+function moviesHTML(data){
+    const {Poster, imdbID, Title, imdbRating, Runtime, Genre, Plot} = data
 
-    return `<div class="movie-div">
-    <img class="poster" src=${poster} />
-    <div class="movie-div-details">
-        <div class="title-div">
-            <h2 class="movie-title">${data.Title}</h2>
-            <i class="fa-solid fa-star"></i>
-            <h5 class="rating">${data.imdbRating}</h5>
+    let posterImg = Poster == "N/A" ? "images/No-image-available.png" : Poster
+    const circleIcon = watchlist.includes(imdbID) ? "fa-circle-minus" : "fa-circle-plus"
+    const watchlistOrRemove = watchListPage ? "Remove" : "Watchlist"
+    let plot = ``
+    if(Plot.length < 145){
+        plot = [...Plot].join('')
+    } else {
+        for(let i=0; i< 145; i++){
+            plot += Plot[i]
+        }
+        plot += `   read more...`
+    }
+
+    return (
+        `<div class="movie-div">
+            <img class="poster" src=${posterImg} />
+            <div class="movie-div-details">
+                <div class="title-div">
+                    <h2 class="movie-title">${Title}</h2>
+                    <span>
+                        <i class="fa-solid fa-star"></i>
+                        <h5 class="rating">${imdbRating}</h5>
+                    </span>
+                </div>
+                <div class="runtime-div">
+                    <p>${Runtime}</p>
+                    <p>${Genre}</p>
+                    <span>
+                        <i class="fa-solid ${circleIcon}"></i>
+                        <button id="watchlist-btn" data-imdbid=${imdbID}>${watchlistOrRemove}</button>
+                    </span>
+                </div>
+                <div class="plot-div">
+                    <h4 class="plot-disc">${plot}</h4>
+                </div>
+            </div>
         </div>
-        <div class="runtime-div">
-            <p>${data.Runtime}</p>
-            <p>${data.Genre}</p>
-            <span>
-            <i class="fa-solid ${circleIcon}"></i>
-            <button id="watchlist-btn" data-imdbid=${data.imdbID}>${watchlistOrRemove}</button>
-            </span>
-        </div>
-        <div class="plot-div">
-            <h4 class="plot-disc">${data.Plot}</h4>
-        </div>
-    </div>
-</div>`
+        `
+    )
 }
 
-function renderWatchlistPage(){
-    if(watchListPage){
+async function renderWatchlistPage(){
+    if(emptyWatchlist){
         for(let movie of watchlist){
-            fetch(`https://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
-            .then(Response => Response.json())
-            .then(data => {
-                html= ``
-                document.querySelector('.empty-watchList').style.display = 'none'
-                watchListPage.innerHTML += htmlReturned(data)
-            })
+            loading = true
+            spinner.style.display = "block"
+            const res = await fetch(`https://www.omdbapi.com/?apikey=c30abc27&i=${movie}`)
+            const data = await res.json()
+            emptyWatchlist.style.display = "none"
+            loading = false
+            spinner.style.display = "none"
+            watchListPage.innerHTML += moviesHTML(data)
         }
     }
 }
 
 renderWatchlistPage()
 
-// Click events
+function addRemoveMovie(e){
+    const imdbID = e.target.dataset.imdbid
+    const icon = e.target.previousElementSibling
 
-document.body.addEventListener('click', (e) => {
-    if (watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to remove the movie from watchlist
-        let filtered = watchlist.filter(mov => e.target.dataset.imdbid !== mov)
+    // to remove the movie from watchlist
+    if (watchlist.includes(imdbID) && imdbID){ 
+        icon.classList.remove('fa-circle-minus')
+        icon.classList.add('fa-circle-plus')
+
+        let filtered = watchlist.filter(movie => imdbID !== movie)
         localStorage.setItem('addMovie', JSON.stringify(filtered))
-        e.target.previousElementSibling.classList.remove('fa-circle-minus')
-        e.target.previousElementSibling.classList.add('fa-circle-plus')
-        if(location.href.includes('watchlist.html')){
-            location.reload()
-        }
+        location.href.includes('watchlist.html') && location.reload()
     }
-    if (!watchlist.includes(e.target.dataset.imdbid) && e.target.dataset.imdbid){ // to add imdb id of movie to watchlist
-        e.target.previousElementSibling.classList.remove('fa-circle-plus')
-        e.target.previousElementSibling.classList.add('fa-circle-minus')
-        watchlist.push(e.target.dataset.imdbid)
+
+    // to add imdb id of movie to watchlist
+    if (!watchlist.includes(imdbID) && imdbID){ 
+        icon.classList.remove('fa-circle-plus')
+        icon.classList.add('fa-circle-minus')
+
+        watchlist.push(imdbID)
         localStorage.setItem('addMovie', JSON.stringify(watchlist))
     }
-})
+}
 
-    searchBtn.addEventListener('click', movieFetch)
-    searchInput.addEventListener('keypress', (e)=>{ //Triggering the search bar with Enter key
-        if (e.key === "Enter") {
-            e.preventDefault();
-            searchBtn.click();
-          }
-    })
+// Event listeners
+
+document.body.addEventListener('click', (e) => addRemoveMovie(e))
+searchBtn?.addEventListener('click', movieFetch)
+
+// Triggering the search bar with Enter key
+searchInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault()
+        searchBtn.click()
+    }
+})

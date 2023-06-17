@@ -2,14 +2,17 @@
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
+
 body{
     height: 100vh;
     margin: 0;
     background-color: #121212;
 }
+
 /* TYPOGRAPHY */
+
 .movie-title{
-    font-size: 1.15rem;
+    font-size: 20px;
 }
 
 a{
@@ -22,7 +25,7 @@ a{
 header{
     height: 13rem;
     color: white;
-    background: url(image\ 36.png) no-repeat center center;
+    background: url(images/headerImg.jpg) no-repeat center center;
     background-size: cover;
     background-color: #0E0E0E;
     -webkit-background-size: cover;
@@ -38,11 +41,13 @@ header{
     height: 100%;
     margin: 0 auto;
 }
+
 .container > h1{
     font-weight: 800;
     font-size: 42.79px;
     letter-spacing: -0.045em;
 }
+
 .container > button{
     background: transparent;
     color: white;
@@ -53,12 +58,8 @@ header{
 /* SEARCH BAR */
 
 .search-bar{
-    display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 3;
+    display: flex;
     justify-content: center;
-    position: relative;
-    height: 2.5rem;
     margin: -1.5rem 0;
 }
 
@@ -74,22 +75,25 @@ header{
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
     background-color: #39393a;
-    font-size: 1.1rem;
-    padding: 1rem 0 1rem 1rem;
+    font-size: 18px;
+    padding: 16px 0 16px 16px;
 }
+
 .fa-magnifying-glass{
     color: #9CA3AF;
 }
+
 #search-input{
     width: 90%;
     background-color: transparent;
     border: none;
     outline: none;
-    font-size: 1.1rem;
-    padding: 0 0 0 0.5rem ;
+    font-size: 18px;
+    padding: 0 0 0 8px;
     color: white;
     font-weight:500;
 }
+
 #search-btn{
     display: flex;
     justify-content: center;
@@ -101,7 +105,7 @@ header{
     border-left: none;
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
-    font-size: 1rem;
+    font-size: 16px;
     background-color: #4B4B4B;
     color: white;
     cursor: pointer;
@@ -110,16 +114,19 @@ header{
 /* ICONS */
 
 .fa-film{
-    font-size: 5rem;
-    color: #2E2E2F;
+    font-size: 80px;
+    color: #6d0f0fad;
 }
+
 .fa-star{
     color: rgb(255, 208, 0);
 }
+
 .fa-circle-plus{
     color: rgb(4, 156, 30);
     font-size: 15px;
 }
+
 .fa-circle-minus{
     color: rgb(223, 32, 32);
     font-size: 15px;
@@ -129,36 +136,45 @@ header{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 150px auto;
+    margin: 25vh auto;
 }
+
 .start-exploring > h4{
     font-size: 18px;
     font-weight: 700;
-    color: #2E2E2F;
-}
-#movie-container, #watchlist-page{
-    width: 32.5rem;
-    margin: 75px auto;
+    color: #6d0f0fad;
 }
 
-/* MOVIE DIVS */
+#movie-container, #watchlist-page{
+    width: 70vw;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+/* MOVIE DIVS DETAILS */
+
 .movie-div{
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 1fr 2fr;
     padding: 20px 0;
     color: white;
     gap: 25px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.137);
 }
+
 .movie-div-details > div{
     display: flex;
     align-items: center;
 }
+
 .poster{
     grid-row: 1/-1;
     border-radius: 2.32941px;
     height: 200px;
     width: 135px;
 }
+
 #watchlist-btn{
     border: none;
     color:white;
@@ -166,38 +182,67 @@ header{
     cursor: pointer;
     padding: 0;
 }
+
+span{
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+}
+
 .plot-disc{
     color: #A5A5A5;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
 }
+
 .error-msg{
     color: #A5A5A5;
     text-align: center;
 }
+
 .title-div{
     gap: 10px;
 }
+
 .runtime-div{
     gap: 20px;
     font-size: 12px;
     font-weight: 400;
 }
+
 .empty-watchList{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .empty-watchList > a{
     display: flex;
     align-items: center;
     color: white;
     gap: 8px;
 }
+
 .empty-watchList > h3 {
     color: #787878;
     text-align: center;
+}
+
+.spinner {
+    display: none;
+    width: 3rem;
+    height: 3rem;
+    font-size: 18px;
+    border-top: solid #ce5f5f98;
+    border-right: 0.7rem solid transparent;
+    border-radius: 50%;
+    margin: 40vh auto;
+    animation: spinner 0.6s linear infinite;
+}
+
+@keyframes spinner {
+    100% { transform: rotate(360deg) }
 }
 
 /* MEDIA QUIRIES */
@@ -207,73 +252,72 @@ header{
     width: 100%;
     padding: 0 2rem;
 }
+
 .search-inputs{
     width: 20rem;
-}
-#movie-container, #watchlist-page{
-    width: 25rem;
 }
 }
 
 @media only screen and (max-width: 550px) {
-.search-inputs{
-    width: 12rem;
-}
 .container{
     width: 100%;
     padding: 0 2rem;
 }
+
+.container > h1{
+    font-size: 24px;
+}
+
+.search-inputs{
+    width: 12rem;
+    padding: 0.7rem 0 0.7rem 0.7rem;
+}
+
 #search-input{
     width: 80%;
-    font-size: 0.75rem;
+    font-size: 12px;
 }
-.search-inputs{
-    padding: 0.5rem 0 0.5rem 0.5rem;
-}
+
 #search-btn{
     width: 4rem;
     font-size: 12px;
 }
-.container > h1{
-    font-size: 24px;
+
+#my-watchlist,
+#watchlist-btn,
+.fa-solid:not(.fa-film){
+    font-size: 10px;
 }
-#my-watchlist{
-    font-size: 9px;
-}
+
 #movie-container, #watchlist-page{
-    width: 15rem;
-    margin: 50px auto;
+    max-width: 18rem;
+    padding: 25px 0;
 }
+
 .poster{
     height: 145px;
     width: 90px;
 }
-.fa-solid:not(.fa-film){
-    font-size: 10px;
-}
+
 .fa-film{
     font-size: 60px;
 }
+
 .movie-title, .plot-disc{
     font-size: 10px;
     line-height: 12px;
 }
+
 .title-div{
     gap: 6px;
 }
-#watchlist-btn{
-    font-size: 10px;
-}
+
 .rating{
     font-size: 8px;
 }
+
 .runtime-div{
-    gap: 0;
-    display: flex;
-    justify-content: space-between;
     font-size: 8px;
-}
-.movie-div{
-    gap: 33px;
+    gap: 1px;
 }
 }
