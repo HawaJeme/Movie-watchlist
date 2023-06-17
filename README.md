@@ -10,14 +10,12 @@ App that will let you save your favorite movies in your watchlist
 <br />
 <br />
 
-
-![watchlistapp netlify app_index html](https://github.com/kuzey4/Movie-watchlist/assets/114367493/c29f3e6e-a91a-4c0b-8487-46f094152c8a)
+![127 0 0 1_5500_index html](https://github.com/kuzey4/Movie-watchlist/assets/114367493/0b3b49a7-5757-4858-94c1-3ddcb22955e6)
 <br />
 <br />
-![watchlistapp netlify app_ (3)](https://github.com/kuzey4/Movie-watchlist/assets/114367493/3a4cc971-9419-4040-bf3b-3040a1646797)
+![127 0 0 1_5500_index html (1)](https://github.com/kuzey4/Movie-watchlist/assets/114367493/bc130511-32cb-48fa-887f-5719f7a36b88)
 <br />
 <br />
-![watchlistapp netlify app_watchlist html](https://github.com/kuzey4/Movie-watchlist/assets/114367493/fe3dd994-e9fd-41fa-834b-f21fac07abf5)
+![127 0 0 1_5500_watchlist html](https://github.com/kuzey4/Movie-watchlist/assets/114367493/9520b1d4-0cf8-4382-a8aa-d2a53271e0e3)
 <br />
 <br />
-![watchlistapp netlify app_watchlist html (1)](https://github.com/kuzey4/Movie-watchlist/assets/114367493/f4a80427-525c-4912-bc4c-eca30b66ac89)
