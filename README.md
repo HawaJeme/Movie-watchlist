@@ -1,12 +1,20 @@
 # Movie-watchlist
-App that will let you save your favorite movies in your watchlist
-- This project is a solution to Movie watchlist solo project on Scrimba.
+Movie Watchlist App is a simple tool to help you keep track of movies you want to watch. Add, remove, and view details of your favorite movies.
 
-## Requirements:
-- Two pages (index.html and watchlist.html).
-- Index = search page. Calls to OMDB API with the title searched for and displays search results.
-- Button to "add to watchlist" which saves that data to local storage.
-- watchlist.html loads and displays data from local storage.
+## Live demo
+Check out the live app [here](https://watchlistapp.netlify.app/)
+
+## Features
+- Add movies to your watchlist.
+- Search for movies and view details.
+- Remove movies from your list.
+- Fully responsive design.
+
+## Technologies Used
+- HTML, CSS, JavaScript
+- React.js
+- TMDB API
+
 <br />
 <br />
 
